@@ -6,11 +6,51 @@ inputs:
     description: 'Path to the config file'
     required: true
     default: '.github/prlint.yaml'
+  version:
+    description: 'Version to use'
+    required: false
+    default: ''
 runs:
-  using: docker
-  image: Dockerfile
-  args:
-    - ${{ inputs.config }}
+  using: composite
+  steps:
+    - name: resolve version
+      id: v
+      shell: bash
+      run: |
+        set -euo pipefail
+        if [[ -n "${{ inputs.version }}" ]]; then
+          echo "tag=${{ inputs.version }}" >> $GITHUB_OUTPUT
+        else
+          tag=$(gh release view --json tagName -q .tagName || true)
+          if [[ -z "$tag" ]]; then
+            tag=$(curl -sSfL -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/konojunya/prlint/releases/latest | jq -r '.tag_name')
+          fi
+          echo "tag=${tag}" >> $GITHUB_OUTPUT
+        fi
+    - name: download prlint
+      shell: bash
+      env:
+        TAG: ${{ steps.v.outputs.tag }}
+      run: |
+        set -euo pipefail
+        base="https://github.com/konojunya/prlint/releases/download/${TAG}"
+        curl -LsSf "${base}/prlint_Linux_x86_64" -o prlint
+        curl -LsSf "${base}/checksums.txt" -o checksums.txt
+        chmod +x prlint
+    - name: verify checksum
+      shell: bash
+      run: |
+        set -euo pipefail
+        sum=$(sha256sum prlint | awk '{print $1}')
+        if ! grep -q "${sum}  prlint_Linux_x86_64" checksums.txt; then
+          echo "::error::Checksum mismatch"
+          exit 2
+        fi
+
+    - name: run prlint
+      shell: bash
+      run: ./prlint ${{ inputs.config }}
+
 branding:
   icon: 'git-pull-request'
   color: 'white'

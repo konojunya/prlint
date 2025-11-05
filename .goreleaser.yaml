@@ -1,0 +1,17 @@
+project_name: prlint
+
+builds:
+  - id: prlint
+    main: main.go
+    env:
+      - CGO_ENABLED=0
+    goos: [linux]
+    goarch: [amd64]
+    binary: prlint_linux_x86_64
+    flags: [-trimpath]
+    ldflags:
+      - -s
+      - -w
+
+checksum:
+  name_template: 'checksums.txt'

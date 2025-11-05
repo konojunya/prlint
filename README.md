@@ -6,8 +6,6 @@ A GitHub Action that validates Pull Requests using [Common Expression Language (
 
 It reads rules from `.github/celguard.yaml` and ensures your PR title, body, branch, labels, etc. follow your team's conventions.
 
-![](./screenshots/screen.png)
-
 ## ✨ Features
 
 - 🔍 **CEL-based rules** — powerful and flexible expression syntax (regex, list operations, logic)

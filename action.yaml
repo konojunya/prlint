@@ -34,19 +34,17 @@ runs:
       run: |
         set -euo pipefail
         base="https://github.com/konojunya/prlint/releases/download/${TAG}"
-        curl -LsSf "${base}/prlint_Linux_x86_64" -o prlint
+        curl -LsSf "${base}/prlint_${TAG#v}_linux_amd64.tar.gz" -o prlint.tar.gz
         curl -LsSf "${base}/checksums.txt" -o checksums.txt
-        chmod +x prlint
-    - name: verify checksum
-      shell: bash
-      run: |
-        set -euo pipefail
-        sum=$(sha256sum prlint | awk '{print $1}')
-        if ! grep -q "${sum}  prlint_Linux_x86_64" checksums.txt; then
+
+        # checksum verification
+        grep prlint_${TAG#v}_linux_amd64.tar.gz checksums.txt | sha256sum --check --status || {
           echo "::error::Checksum mismatch"
           exit 2
-        fi
-
+        }
+        tar -xzf prlint.tar.gz
+        chmod +x prlint_linux_x86_64
+        mv prlint_linux_x86_64 prlint
     - name: run prlint
       shell: bash
       run: ./prlint ${{ inputs.config }}

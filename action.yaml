@@ -1,0 +1,16 @@
+name: PRLint
+description: Pull Request Linter with CEL
+author: konojunya
+inputs:
+  config:
+    description: 'Path to the config file'
+    required: true
+    default: '.github/prlint.yaml'
+runs:
+  using: docker
+  image: Dockerfile
+  args:
+    - ${{ inputs.config }}
+branding:
+  icon: 'git-pull-request'
+  color: 'white'

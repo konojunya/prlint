@@ -40,7 +40,7 @@ func TestRun(t *testing.T) {
 					Error: "Title must be longer than 10 characters",
 				},
 			},
-			wantErrMsg: "PRLint failed.\n[title] Title must be longer than 10 characters",
+			wantErrMsg: "[title] Title must be longer than 10 characters",
 			wantErr:    true,
 		},
 		"Pass - body": {
@@ -70,7 +70,7 @@ func TestRun(t *testing.T) {
 					Error: "Body must be not empty",
 				},
 			},
-			wantErrMsg: "PRLint failed.\n[body] Body must be not empty",
+			wantErrMsg: "[body] Body must be not empty",
 			wantErr:    true,
 		},
 		"Pass - author": {
@@ -104,7 +104,7 @@ func TestRun(t *testing.T) {
 					Error: "Author must be not empty",
 				},
 			},
-			wantErrMsg: "PRLint failed.\n[author] Author must be not empty",
+			wantErrMsg: "[author] Author must be not empty",
 			wantErr:    true,
 		},
 		"Pass - base_ref": {
@@ -138,7 +138,7 @@ func TestRun(t *testing.T) {
 					Error: "Base ref must be 'main'",
 				},
 			},
-			wantErrMsg: "PRLint failed.\n[base_ref] Base ref must be 'main'",
+			wantErrMsg: "[base_ref] Base ref must be 'main'",
 			wantErr:    true,
 		},
 		"Pass - head_ref": {
@@ -172,7 +172,7 @@ func TestRun(t *testing.T) {
 					Error: "Head ref must be 'feature'",
 				},
 			},
-			wantErrMsg: "PRLint failed.\n[head_ref] Head ref must be 'feature'",
+			wantErrMsg: "[head_ref] Head ref must be 'feature'",
 			wantErr:    true,
 		},
 		"Pass - labels": {
@@ -206,7 +206,7 @@ func TestRun(t *testing.T) {
 					Error: "Labels must contain 'feature'",
 				},
 			},
-			wantErrMsg: "PRLint failed.\n[labels] Labels must contain 'feature'",
+			wantErrMsg: "[labels] Labels must contain 'feature'",
 			wantErr:    true,
 		},
 		"Pass - title matches conventional commits (feat)": {
@@ -251,7 +251,7 @@ func TestRun(t *testing.T) {
 					Error: "PR title must follow conventional commits format",
 				},
 			},
-			wantErrMsg: "PRLint failed.\n[title] PR title must follow conventional commits format",
+			wantErrMsg: "[title] PR title must follow conventional commits format",
 			wantErr:    true,
 		},
 		"Failed - title does not match conventional commits (no colon)": {
@@ -266,7 +266,7 @@ func TestRun(t *testing.T) {
 					Error: "PR title must follow conventional commits format",
 				},
 			},
-			wantErrMsg: "PRLint failed.\n[title] PR title must follow conventional commits format",
+			wantErrMsg: "[title] PR title must follow conventional commits format",
 			wantErr:    true,
 		},
 		"Failed - title does not match conventional commits (no space after colon)": {
@@ -281,7 +281,7 @@ func TestRun(t *testing.T) {
 					Error: "PR title must follow conventional commits format",
 				},
 			},
-			wantErrMsg: "PRLint failed.\n[title] PR title must follow conventional commits format",
+			wantErrMsg: "[title] PR title must follow conventional commits format",
 			wantErr:    true,
 		},
 		"Failed - title does not match conventional commits (empty after colon)": {
@@ -296,7 +296,7 @@ func TestRun(t *testing.T) {
 					Error: "PR title must follow conventional commits format",
 				},
 			},
-			wantErrMsg: "PRLint failed.\n[title] PR title must follow conventional commits format",
+			wantErrMsg: "[title] PR title must follow conventional commits format",
 			wantErr:    true,
 		},
 	}

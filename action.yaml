@@ -13,26 +13,11 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: resolve version
-      id: v
-      shell: bash
-      run: |
-        set -euo pipefail
-        if [[ -n "${{ inputs.version }}" ]]; then
-          echo "tag=${{ inputs.version }}" >> $GITHUB_OUTPUT
-        else
-          tag=$(gh release view --json tagName -q .tagName || true)
-          if [[ -z "$tag" ]]; then
-            tag=$(curl -sSfL -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/konojunya/prlint/releases/latest | jq -r '.tag_name')
-          fi
-          echo "tag=${tag}" >> $GITHUB_OUTPUT
-        fi
     - name: download prlint
       shell: bash
-      env:
-        TAG: ${{ steps.v.outputs.tag }}
       run: |
         set -euo pipefail
+        TAG="${{ github.ref_name }}"
         base="https://github.com/konojunya/prlint/releases/download/${TAG}"
         curl -LsSf "${base}/prlint_${TAG#v}_linux_amd64.tar.gz" -o prlint.tar.gz
         curl -LsSf "${base}/checksums.txt" -o checksums.txt

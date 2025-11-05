@@ -39,7 +39,7 @@ Create `.github/workflows/prlint.yaml`.
 name: PR Lint
 on:
   pull_request:
-    types: [opened, synchronize, reopened]
+    types: [opened, synchronize, reopened, edited]
 
 permissions:
   contents: read

@@ -93,7 +93,7 @@ func run(event *Event, cfg *Config) error {
 	}
 
 	if len(failures) > 0 {
-		return fmt.Errorf("PRLint failed.\n%s", strings.Join(failures, "\n"))
+		return fmt.Errorf("%s", strings.Join(failures, "\n"))
 	}
 
 	return nil

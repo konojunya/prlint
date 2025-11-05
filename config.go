@@ -20,7 +20,7 @@ func resolveConfigPath(path string) string {
 }
 
 func ReadConfig() (*Config, error) {
-	path := ".github/prlint.yaml"
+	path := ".github/celguard.yaml"
 	if len(os.Args) > 1 {
 		path = os.Args[1]
 	}

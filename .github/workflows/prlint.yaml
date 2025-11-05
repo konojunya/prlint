@@ -8,8 +8,8 @@ permissions:
   pull-requests: write
 
 jobs:
-  prlint:
+  celguard:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
-      - uses: konojunya/prlint@v1.1.2
+      - uses: konojunya/celguard@v1.1.2

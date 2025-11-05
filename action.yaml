@@ -5,7 +5,7 @@ inputs:
   config:
     description: 'Path to the config file'
     required: true
-    default: '.github/prlint.yaml'
+    default: '.github/celguard.yaml'
   version:
     description: 'Version to use'
     required: false
@@ -44,26 +44,26 @@ runs:
           exit 2
         fi
         echo "tag=$TAG" >> "$GITHUB_OUTPUT"
-    - name: download prlint
+    - name: download celguard
       shell: bash
       run: |
         set -euo pipefail
         TAG="${{ steps.tag.outputs.tag }}"
-        base="https://github.com/konojunya/prlint/releases/download/${TAG}"
-        curl -LsSf "${base}/prlint_${TAG#v}_linux_amd64.tar.gz" -o "prlint_${TAG#v}_linux_amd64.tar.gz"
+        base="https://github.com/konojunya/celguard/releases/download/${TAG}"
+        curl -LsSf "${base}/celguard_${TAG#v}_linux_amd64.tar.gz" -o "celguard_${TAG#v}_linux_amd64.tar.gz"
         curl -LsSf "${base}/checksums.txt" -o checksums.txt
 
         # checksum verification
-        grep " prlint_${TAG#v}_linux_amd64.tar.gz" checksums.txt | sha256sum -c --status
+        grep " celguard_${TAG#v}_linux_amd64.tar.gz" checksums.txt | sha256sum -c --status
 
-        tar -xzf "prlint_${TAG#v}_linux_amd64.tar.gz"
-        chmod +x prlint_linux_x86_64
-        mv prlint_linux_x86_64 prlint
-    - name: run prlint
+        tar -xzf "celguard_${TAG#v}_linux_amd64.tar.gz"
+        chmod +x celguard_linux_x86_64
+        mv celguard_linux_x86_64 celguard
+    - name: run celguard
       shell: bash
       env:
         GITHUB_TOKEN: ${{ github.token }}
-      run: ./prlint ${{ inputs.config }}
+      run: ./celguard ${{ inputs.config }}
 
 branding:
   icon: 'git-pull-request'

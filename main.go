@@ -101,7 +101,7 @@ func run(event *Event, cfg *Config) error {
 
 func fail(format string, a ...any) {
 	msg := fmt.Sprintf(format, a...)
-	fmt.Printf("::error title=prlint::%s\n", msg)
+	fmt.Printf("::error title=celguard::%s\n", msg)
 	os.Exit(2)
 }
 
@@ -135,7 +135,7 @@ func main() {
 			fmt.Println(outBuf.String())
 			os.Exit(1)
 		}
-		fmt.Println("PRLint passed")
+		fmt.Println("celguard passed")
 		return
 	}
 
@@ -151,12 +151,12 @@ func main() {
 			fmt.Println(outBuf.String())
 			os.Exit(1)
 		}
-		fmt.Println("PRLint passed")
+		fmt.Println("celguard passed")
 		return
 	}
 
 	if err != nil {
-		header := "### ❌ PRLint failed"
+		header := "### ❌ celguard failed"
 		body := fmt.Sprintf("%s\n\n```\n%s\n```", header, outBuf.String())
 		if cErr := upsertFailedComment(ctx, gh, owner, repo, event.PullRequest.Number, body); cErr != nil {
 			fmt.Printf("warn: comment upsert: %v\n", cErr)
@@ -168,5 +168,5 @@ func main() {
 	if dErr := deleteFailedComment(ctx, gh, owner, repo, event.PullRequest.Number); dErr != nil {
 		fmt.Printf("warn: comment delete: %v\n", dErr)
 	}
-	fmt.Println("PRLint passed")
+	fmt.Println("celguard passed")
 }

@@ -1,4 +1,4 @@
-module github.com/konojunya/prlint
+module github.com/konojunya/celguard
 
 go 1.24.1
 

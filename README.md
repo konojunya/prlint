@@ -2,25 +2,25 @@ example pr diff
 
 # PR Lint
 
-[![GitHub Actions](https://img.shields.io/github/actions/workflow/status/konojunya/prlint/ci.yaml?branch=main)](https://github.com/konojunya/prlint/actions)
+[![GitHub Actions](https://img.shields.io/github/actions/workflow/status/konojunya/celguard/ci.yaml?branch=main)](https://github.com/konojunya/celguard/actions)
 
 A GitHub Action that validates Pull Requests using [Common Expression Language (CEL)](https://github.com/google/cel-spec).
 
-It reads rules from `.github/prlint.yaml` and ensures your PR title, body, branch, labels, etc. follow your team's conventions.
+It reads rules from `.github/celguard.yaml` and ensures your PR title, body, branch, labels, etc. follow your team's conventions.
 
 ![](./screenshots/screen.png)
 
 ## ✨ Features
 
 - 🔍 **CEL-based rules** — powerful and flexible expression syntax (regex, list operations, logic)
-- ⚙️ **Custom config per repo** — define rules in `.github/prlint.yaml`
+- ⚙️ **Custom config per repo** — define rules in `.github/celguard.yaml`
 - 🧪 **Go implementation** — single binary, so fast
 
 ## 🚀 Quick Start
 
 ### 1. Create Configuration File
 
-Create `.github/prlint.yaml` in your repository root.
+Create `.github/celguard.yaml` in your repository root.
 
 ```yaml
 title:
@@ -36,7 +36,7 @@ labels:
 
 ### 2. Add Workflow
 
-Create `.github/workflows/prlint.yaml`.
+Create `.github/workflows/celguard.yaml`.
 
 ```yaml
 name: PR Lint
@@ -49,12 +49,12 @@ permissions:
   pull-requests: write
 
 jobs:
-  prlint:
+  celguard:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: Run PR Lint
-        uses: konojunya/prlint@v1.1.2
+        uses: konojunya/celguard@v1.1.2
 ```
 
 ## 📖 Configuration
@@ -105,7 +105,7 @@ Contributions are welcome! You can contribute by following these steps:
 
 ### Contribution Guidelines
 
-- Bug reports and feature requests are welcome in [Issues](https://github.com/konojunya/prlint/issues)
+- Bug reports and feature requests are welcome in [Issues](https://github.com/konojunya/celguard/issues)
 - Code changes should be submitted via Pull Request
 - Please follow the existing code style
 - When adding new features, please also add tests

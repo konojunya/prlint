@@ -1,13 +1,13 @@
-project_name: prlint
+project_name: celguard
 
 builds:
-  - id: prlint
+  - id: celguard
     main: .
     env:
       - CGO_ENABLED=0
     goos: [linux]
     goarch: [amd64]
-    binary: prlint_linux_x86_64
+    binary: celguard_linux_x86_64
     flags: [-trimpath]
     ldflags:
       - -s

@@ -10,7 +10,7 @@ import (
 	"golang.org/x/oauth2"
 )
 
-const prlintMarker = "<!-- prlint:konojunya/prlint -->"
+const celguardMarker = "<!-- celguard:konojunya/celguard -->"
 
 func GitHubClient(ctx context.Context) (*github.Client, error) {
 	token := os.Getenv("GITHUB_TOKEN")
@@ -37,7 +37,7 @@ func findExistingComment(ctx context.Context, client *github.Client, owner, repo
 		}
 
 		for _, c := range comments {
-			if c.Body != nil && strings.Contains(*c.Body, prlintMarker) {
+			if c.Body != nil && strings.Contains(*c.Body, celguardMarker) {
 				return c, nil
 			}
 		}
@@ -53,7 +53,7 @@ func findExistingComment(ctx context.Context, client *github.Client, owner, repo
 }
 
 func upsertFailedComment(ctx context.Context, client *github.Client, owner, repo string, prNumber int, body string) error {
-	content := prlintMarker + "\n" + body
+	content := celguardMarker + "\n" + body
 
 	existing, err := findExistingComment(ctx, client, owner, repo, prNumber)
 	if err != nil {
@@ -75,7 +75,7 @@ func deleteFailedComment(ctx context.Context, client *github.Client, owner, repo
 			return fmt.Errorf("list comments: %w", err)
 		}
 		for _, c := range cs {
-			if c.Body != nil && strings.Contains(*c.Body, prlintMarker) {
+			if c.Body != nil && strings.Contains(*c.Body, celguardMarker) {
 				if _, err := client.Issues.DeleteComment(ctx, owner, repo, c.GetID()); err != nil {
 					return fmt.Errorf("delete comment: %w", err)
 				}

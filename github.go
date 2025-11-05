@@ -61,9 +61,7 @@ func upsertFailedComment(ctx context.Context, client *github.Client, owner, repo
 	content := fmt.Sprintf("%s\n%s", prlintMarker, body)
 	if existing != nil {
 		_, _, err := client.Issues.EditComment(ctx, owner, repo, existing.GetID(), &github.IssueComment{Body: &content})
-		if err != nil {
-			return err
-		}
+		return err
 	}
 
 	_, _, err = client.Issues.CreateComment(ctx, owner, repo, prNumber, &github.IssueComment{Body: &content})

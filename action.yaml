@@ -18,12 +18,12 @@ runs:
       shell: bash
       env:
         GH_TOKEN: ${{ github.token }}
+        ACTION_REF:  ${{ github.action_ref }}
       run: |
         set -euo pipefail
-        REPO="${GITHUB_ACTION_REPOSITORY}"
-        REF="${GITHUB_ACTION_REF}"
+        REPO=konojunya/celguard
+        REF="${ACTION_REF}"
 
-        echo "REPO=$REPO"
         echo "REF=$REF"
         
         resolve_tag() {

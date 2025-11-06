@@ -40,7 +40,7 @@ Create `.github/workflows/celguard.yaml`.
 name: PR Lint
 on:
   pull_request:
-    types: [opened, synchronize, reopened, edited]
+    types: [opened, reopened, edited]
 
 permissions:
   contents: read
@@ -52,7 +52,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Run PR Lint
-        uses: konojunya/celguard@v1.1.2
+        uses: konojunya/celguard@v1
 ```
 
 ## 📖 Configuration
